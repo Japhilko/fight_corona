@@ -11,4 +11,29 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## 
+## Interessante Links
+
+- [Intensivregister](https://www.divi.de/register/intensivregister?view=items)
+
+- [Covid19 Italien](https://github.com/pcm-dpc/COVID-19)
+
+- [Karte mit Covid19 Fällen](https://npgeo-corona-npgeo-de.hub.arcgis.com/)
+
+- [Covid 19 Resource center](https://www.thelancet.com/coronavirus)
+
+- [Kaggle Covid19](https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge/tasks)
+
+- [Sueddeutsche - Zahlen zur Pandemie](https://www.sueddeutsche.de/wissen/coronavirus-zahlen-daten-1.4844448)
+
+- [Krankenhaus Register](https://www.divi.de/register/intensivregister?view=items)
+
+- [Covid-19 Global Tracker](https://www.perapera.ai/watch/topic/covid19/tab/de?t=en)
+
+- [The Lancet Research Center](https://www.thelancet.com/coronavirus)
+
+## Hackathon
+
+- [Datensätze Corona](https://docs.google.com/spreadsheets/d/13la9BFcPUeZKnx6amfwogzmhcNxtF_ouBiV6aOpDHFM/edit#gid=0)
+
+- [Themen Hackathon](https://airtable.com/shrs71ccUVKyvLlUA/tbl6Br4W3IyPGk1jt/viw7AlEju6qFtXJqL?blocks=hide)
+
