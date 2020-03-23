@@ -31,6 +31,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - [The Lancet Research Center](https://www.thelancet.com/coronavirus)
 
+- [PLZ](www.metaspatial.net/download/plz.tar.gz)
+
+- [Leaflet](https://www.r-bloggers.com/how-to-create-a-geojson-in-r/)
+
+<!--
+https://rstudio.github.io/leaflet/json.html
+https://rstudio-pubs-static.s3.amazonaws.com/508643_d6cb2a0b10484f40b1bcba052dda28e1.html
+-->
+
 ## Hackathon
 
 - [Datensätze Corona](https://docs.google.com/spreadsheets/d/13la9BFcPUeZKnx6amfwogzmhcNxtF_ouBiV6aOpDHFM/edit#gid=0)
