@@ -40,6 +40,8 @@ https://rstudio.github.io/leaflet/json.html
 https://rstudio-pubs-static.s3.amazonaws.com/508643_d6cb2a0b10484f40b1bcba052dda28e1.html
 -->
 
+- [Covid Fälle nach Landkreis](https://npgeo-corona-npgeo-de.hub.arcgis.com/)
+
 ## Hackathon
 
 - [Datensätze Corona](https://docs.google.com/spreadsheets/d/13la9BFcPUeZKnx6amfwogzmhcNxtF_ouBiV6aOpDHFM/edit#gid=0)
@@ -51,3 +53,6 @@ https://rstudio-pubs-static.s3.amazonaws.com/508643_d6cb2a0b10484f40b1bcba052dda
 - [BR zu Wirvsvirus](https://www.br.de/nachrichten/deutschland-welt/wirvsvirus-ueber-tausend-loesungen-zur-coronakrise,RtzHVUI)
 
 - [ntv](https://www.n-tv.de/politik/Bund-will-Hackathon-Ideen-umsetzen-article21661141.html)
+
+
+- [The Lancet](https://www.thelancet.com/coronavirus)
