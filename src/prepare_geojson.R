@@ -6,6 +6,8 @@
 # install.packages("rmapshaper")
 # install.packages("geojsonio")
 
+library(dplyr)
+library(tidyverse)
 
 # geojson
 
@@ -21,16 +23,24 @@ plz2 <- rmapshaper::ms_simplify(plz)
 
 plz3 <- plz2 
 
-library(dplyr)
-library(tidyverse)
 
 plz3@data <- plz3@data %>% 
   select(1)
 
 plz3@data <- plz2@data[,1]
 
+
+# Spatialpoints dataframe -------------------------------------------------
+
+coord_plz <- coordinates(plz2)
+
+testdat <- SpatialPointsDataFrame(coord_plz,data.frame(plz2@data$PLZ99))
+
+
+
 # write data --------------------------------------------------------------
 
+rgdal::writeOGR(testdat, paste0(path,'plzpoints.geojson'),'dataMap', driver='GeoJSON')
 
 rgdal::writeOGR(plz, paste0(path,'plz.geojson'),'dataMap', driver='GeoJSON')
 
@@ -75,9 +85,24 @@ dev.off()
 
 # Links -------------------------------------------------------------------
 
+# https://cran.r-project.org/web/packages/rmapshaper/vignettes/rmapshaper.html
+
+
 # https://dillonshook.com/leaflet-zip-code-map-part-1/
 # https://www.reddit.com/r/javascript/comments/88tkg3/question_about_using_leaflet_with_r/
 # https://leafletjs.com/examples/geojson/
 
 
 # https://blog.mapbox.com/rendering-big-geodata-on-the-fly-with-geojson-vt-4e4d2a5dd1f2
+
+# https://covmapper.now.sh/
+
+# https://cran.r-project.org/web/packages/sf/vignettes/sf1.html
+# https://geocompr.robinlovelace.net/spatial-class.html
+# https://r-spatial.github.io/sf/articles/sf1.html
+# https://r-spatial.github.io/sf/reference/st_as_sf.html
+
+# https://gis.stackexchange.com/questions/109652/removing-columns-in-a-spatialpolygonsdataframe-in-r
+
+# https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf
+# https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf
