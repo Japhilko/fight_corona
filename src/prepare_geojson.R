@@ -2,11 +2,21 @@
 # Jan-Philipp Kolb
 # Sun Apr 05 11:23:46 2020
 
+
+
+# Install and load packages -----------------------------------------------
+
+
 # install.packages("rmapshaper")
 # install.packages("geojsonio")
 
 library(dplyr)
 library(tidyverse)
+library(sp)
+library(tmaptools)
+
+
+# declare paths -----------------------------------------------------------
 
 # geojson
 
@@ -15,31 +25,44 @@ base_path <- "E:/github/fight_corona/"
 graph_path <- paste0(base_path,"figure/")
 
 
+# Load data ---------------------------------------------------------------
+
 plz <- rgdal::readOGR(paste0(path,"post_pl.shp"))
 
+# simplify the map --------------------------------------------------------
 
 plz2 <- rmapshaper::ms_simplify(plz)
 
 plz3 <- plz2 
-
-
 plz3@data <- plz3@data %>% 
   select(1)
-
-plz3@data <- plz2@data[,1]
 
 
 # Spatialpoints dataframe -------------------------------------------------
 
-coord_plz <- coordinates(plz2)
+coord_plz <- data.frame(coordinates(plz3))
 
-testdat <- SpatialPointsDataFrame(coord_plz,data.frame(plz2@data$PLZ99))
+bbox_plz_list <- list()
+
+for (i in 1:length(plz3)){
+  bbox_plz_list[[i]] <- bbox(plz3[i,])
+}
+
+plz3@data$long_min <- unlist(lapply(bbox_plz_list,function(x)x[1,1]))
+plz3@data$long_max <- unlist(lapply(bbox_plz_list,function(x)x[1,2]))
+
+plz3@data$lat_min <- unlist(lapply(bbox_plz_list,function(x)x[2,1]))
+plz3@data$lat_max <- unlist(lapply(bbox_plz_list,function(x)x[2,2]))
 
 
+# bbox_plz <- bbox(plz)
+
+testdat <- SpatialPointsDataFrame(coord_plz,data.frame(plz3@data))
 
 # write data --------------------------------------------------------------
 
 rgdal::writeOGR(testdat, paste0(path,'plzpoints.geojson'),'dataMap', driver='GeoJSON')
+rgdal::writeOGR(testdat, paste0(path,'plzpoints_bounds.geojson'),'dataMap', driver='GeoJSON')
 
 rgdal::writeOGR(plz, paste0(path,'plz.geojson'),'dataMap', driver='GeoJSON')
 
@@ -79,6 +102,9 @@ png(paste0(graph_path,"berlin.png"))
 plot(berlin)
 dev.off()
 
+# get coordinates of Mannheim ---------------------------------------------
+
+gc_ma <- tmaptools::geocode_OSM("Mannheim")
 
 
 
