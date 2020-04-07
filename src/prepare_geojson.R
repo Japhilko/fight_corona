@@ -2,7 +2,6 @@
 # Jan-Philipp Kolb
 # Sun Apr 05 11:23:46 2020
 
-
 # install.packages("rmapshaper")
 # install.packages("geojsonio")
 
