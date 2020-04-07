@@ -33,14 +33,26 @@ plz <- rgdal::readOGR(paste0(path,"post_pl.shp"))
 
 plz2 <- rmapshaper::ms_simplify(plz)
 
-plz3 <- plz2 
+plz4 <- plz3 <- plz2 
 plz3@data <- plz3@data %>% 
   select(1)
+
+plz4@data <- plz4@data %>% 
+  select(1,3)
+
 
 
 # Spatialpoints dataframe -------------------------------------------------
 
 coord_plz <- data.frame(coordinates(plz3))
+
+
+# get the area size -------------------------------------------------------
+
+plz4@data$area <- raster::area(plz4)
+
+
+# get the bounding boxes --------------------------------------------------
 
 bbox_plz_list <- list()
 
@@ -58,11 +70,12 @@ plz3@data$lat_max <- unlist(lapply(bbox_plz_list,function(x)x[2,2]))
 # bbox_plz <- bbox(plz)
 
 testdat <- SpatialPointsDataFrame(coord_plz,data.frame(plz3@data))
-
+testdat2 <- SpatialPointsDataFrame(coord_plz,data.frame(plz4@data))
 # write data --------------------------------------------------------------
 
 rgdal::writeOGR(testdat, paste0(path,'plzpoints.geojson'),'dataMap', driver='GeoJSON')
 rgdal::writeOGR(testdat, paste0(path,'plzpoints_bounds.geojson'),'dataMap', driver='GeoJSON')
+rgdal::writeOGR(testdat2, paste0(path,'plzpoints_area.geojson'),'dataMap', driver='GeoJSON')
 
 rgdal::writeOGR(plz, paste0(path,'plz.geojson'),'dataMap', driver='GeoJSON')
 
