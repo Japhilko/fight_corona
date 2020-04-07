@@ -52,6 +52,20 @@ coord_plz <- data.frame(coordinates(plz3))
 plz4@data$area <- raster::area(plz4)
 colnames(plz4@data) <- c("plz","name","area")
 
+replace_umlauts <- function(x){
+  x <- gsub("ü","ue",x)
+  x <- gsub("ä","ae",x)
+  x <- gsub("ö","oe",x)
+  x <- gsub("Ö","Oe",x)
+  x <- gsub("Ä","Ae",x)
+  x <- gsub("Ü","Ue",x)
+  x <- gsub("ß","ss",x)
+  return(x)
+}
+
+plz4@data$name <- replace_umlauts(plz4@data$name)
+
+
 # get the bounding boxes --------------------------------------------------
 
 bbox_plz_list <- list()
@@ -71,6 +85,9 @@ plz3@data$lat_max <- unlist(lapply(bbox_plz_list,function(x)x[2,2]))
 
 testdat <- SpatialPointsDataFrame(coord_plz,data.frame(plz3@data))
 testdat2 <- SpatialPointsDataFrame(coord_plz,data.frame(plz4@data))
+
+
+
 
 # write data --------------------------------------------------------------
 
