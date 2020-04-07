@@ -50,7 +50,7 @@ coord_plz <- data.frame(coordinates(plz3))
 # get the area size -------------------------------------------------------
 
 plz4@data$area <- raster::area(plz4)
-
+colnames(plz4@data) <- c("plz","name","area")
 
 # get the bounding boxes --------------------------------------------------
 
@@ -71,6 +71,7 @@ plz3@data$lat_max <- unlist(lapply(bbox_plz_list,function(x)x[2,2]))
 
 testdat <- SpatialPointsDataFrame(coord_plz,data.frame(plz3@data))
 testdat2 <- SpatialPointsDataFrame(coord_plz,data.frame(plz4@data))
+
 # write data --------------------------------------------------------------
 
 rgdal::writeOGR(testdat, paste0(path,'plzpoints.geojson'),'dataMap', driver='GeoJSON')
