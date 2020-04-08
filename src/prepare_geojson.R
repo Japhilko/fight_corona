@@ -33,13 +33,16 @@ plz <- rgdal::readOGR(paste0(path,"post_pl.shp"))
 
 plz2 <- rmapshaper::ms_simplify(plz)
 
-plz4 <- plz3 <- plz2 
+plz5 <- plz4 <- plz3 <- plz2 
+
 plz3@data <- plz3@data %>% 
   select(1)
 
 plz4@data <- plz4@data %>% 
   select(1,3)
 
+plz5@data <- plz5@data %>% 
+  select(1,3)
 
 
 # Spatialpoints dataframe -------------------------------------------------
@@ -48,6 +51,8 @@ coord_plz <- data.frame(coordinates(plz3))
 
 
 # get the area size -------------------------------------------------------
+
+# https://www.researchgate.net/post/How_to_calculate_the_polygon_area_using_R2
 
 plz4@data$area <- raster::area(plz4)
 colnames(plz4@data) <- c("plz","name","area")
@@ -87,19 +92,31 @@ testdat <- SpatialPointsDataFrame(coord_plz,data.frame(plz3@data))
 testdat2 <- SpatialPointsDataFrame(coord_plz,data.frame(plz4@data))
 
 
+# prepare zip code map ----------------------------------------------------
+
+colnames(plz5@data) <- c("plz","name")
+plz5@data$name <- replace_umlauts(plz5@data$name)
+
 
 
 # write data --------------------------------------------------------------
 
+rgdal::writeOGR(testdat2, paste0(path,'plzpoints_area.geojson'),'dataMap', driver='GeoJSON')
+
+rgdal::writeOGR(plz5, paste0(path,'plz_small2.geojson'),'dataMap', driver='GeoJSON')
+
+
+# write further data ------------------------------------------------------
+
+
+
 rgdal::writeOGR(testdat, paste0(path,'plzpoints.geojson'),'dataMap', driver='GeoJSON')
 rgdal::writeOGR(testdat, paste0(path,'plzpoints_bounds.geojson'),'dataMap', driver='GeoJSON')
-rgdal::writeOGR(testdat2, paste0(path,'plzpoints_area.geojson'),'dataMap', driver='GeoJSON')
+
 
 rgdal::writeOGR(plz, paste0(path,'plz.geojson'),'dataMap', driver='GeoJSON')
 
 rgdal::writeOGR(plz2, paste0(path,'plz_small.geojson'),'dataMap', driver='GeoJSON')
-
-rgdal::writeOGR(plz3, paste0(path,'plz_small2.geojson'),'dataMap', driver='GeoJSON')
 
 rgdal::writeOGR(berlin, paste0(path,'plz_berlin.geojson'),'dataMap', driver='GeoJSON')
 
@@ -135,6 +152,8 @@ dev.off()
 
 # get coordinates of Mannheim ---------------------------------------------
 
+
+# https://latitudelongitude.org/de/mannheim/
 gc_ma <- tmaptools::geocode_OSM("Mannheim")
 
 
